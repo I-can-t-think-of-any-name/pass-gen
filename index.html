@@ -191,15 +191,15 @@
 
       const active_sets = [];
 
-      ['#set-letters-small', '#set-digits', '#set-spaces', '#set-delimeters', '#set-symbols'].forEach(id => {
+      ['#set-letters-large', '#set-letters-small', '#set-digits', '#set-spaces', '#set-delimeters', '#set-symbols'].forEach(id => {
         const el = cont.querySelector(id);
         if (!el.checked) return;
 
         active_sets.push(el.dataset.chars.split(''));
       });
 
-      if (length < active_sets.length) {
-        return;
+      if (length < active_sets.length || !active_sets.length) {
+        return 'Select at least one character set!';
       }
 
       const charSet = active_sets.map(s => s.join('')).join('');
