@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pass Genie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-background: #eae1df;
+      --color-generate-button-bg: #b79492;
+      --color-generate-button-text: #ffffff;
+      --color-settings-icon: #000000;
+      --color-settings-bg: #f5f5f5;
+      --color-settings-text: #b79492;
+      --color-password-bg: #f5f5f5;
+      --color-password-text: #b79492;
+      --color-hint-text: #917c78;
+    }
+
+    body {
+      font-family: "Manrope", sans-serif;
+      background-color: var(--color-background);
+      top: -20%;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      position: fixed;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      font-size: 1.5em;
+    }
+
+    .settings {
+      height: 60%;
+      margin-right: 20px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--color-settings-icon);
+    }
+
+    h1 {
+      margin-bottom: 0px;
+    }
+
+    h2 {
+      margin: 0px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+    }
+
+    .generate {
+      background-color: var(--color-generate-button-bg);
+      font-size: 1em;
+
+      font-family: inherit;
+      border-color: transparent;
+      color: var(--color-generate-button-text);
+      border-radius: 5px;
+      display: inline-flex;
+      padding: 0.5em 0.75em;
+      margin: 0.75em auto;
+    }
+
+    code {
+      background-color: var(--color-password-bg);
+      color: var(--color-password-text);
+      font-size: 2em;
+      padding: 0.25em 0.5em 0.25em;
+    }
+
+    .to-copy {
+      color: var(--color-hint-text);
+      font-size: smaller;
+    }
+
+    .tippy-box[data-theme~="custom"] {
+      background-color: var(--color-settings-bg);
+      color: var(--color-settings-text);
+    }
+
+    .tippy-box[data-theme~="custom"][data-placement^="top"]>.tippy-arrow::before {
+      border-top-color: var(--color-settings-bg);
+    }
+
+    .tippy-box[data-theme~="custom"][data-placement^="left"]>.tippy-arrow::before {
+      border-left-color: var(--color-settings-bg);
+    }
+
+    .tippy-box[data-theme~="custom"][data-placement^="right"]>.tippy-arrow::before {
+      border-right-color: var(--color-settings-bg);
+    }
+
+    .tippy-box[data-theme~="custom"][data-placement^="bottom"]>.tippy-arrow::before {
+      border-bottom-color: var(--color-settings-bg);
+    }
+
+    .settings-row {
+      font-size: large;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-number {
+      width: 40px;
+      max-width: 100px;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      font-size: 1rem;
+      padding: 0.5em 0.5em;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Pass Genie</h1>
+  <div class="row">
+    <div class="settings">
+      <i class="fa-solid fa-gear fa-2xl"></i>
+    </div>
+    <button type="submit" class="generate">Сгенерировать</button>
+  </div>
+  <div class="row">
+    <code class="password">4GyiI_ih-l</code>
+  </div>
+  <div class="row">
+    <div class="to-copy">Нажмите, чтобы скопировать</div>
+  </div>
+
+  <div id="settings-menu" class="settings-menu" style="display: none">
+    <h2>Длина пароля</h2>
+    <div class="settings-row">
+      <input type="number" name="length" id="set-length" value="12" min="8" max="25" class="input-number" />
+      <label for="set-length">символов</label>
+    </div>
+    <h2>Использовать</h2>
+
+    <div class="settings-row">
+      <input type="checkbox" name="letters-large" id="set-letters-large" data-chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        checked />
+      <label for="set-letters-large">Прописные буквы (A-Z)</label>
+    </div>
+
+    <div class="settings-row">
+      <input type="checkbox" name="letters-small" id="set-letters-small" data-chars="abcdefghijklmnopqrstuvwxyz"
+        checked />
+      <label for="set-letters-small">Строчные буквы (a-z)</label>
+    </div>
+
+    <div class="settings-row">
+      <input type="checkbox" name="digits" id="set-digits" data-chars="01234567890123456789" checked />
+      <label for="set-digits">Цифры (0-9)</label>
+    </div>
+
+    <div class="settings-row">
+      <input type="checkbox" name="space" id="set-spaces" data-chars=" " />
+      <label for="set-spaces">Пробел</label>
+    </div>
+
+    <div class="settings-row">
+      <input type="checkbox" name="delimeters" id="set-delimeters" data-chars="-_-_" checked />
+      <label for="set-delimeters">Разделители</label>
+    </div>
+    <span style="margin-left: 5px">тире, подчеркивание</span>
+
+    <div class="settings-row">
+      <input type="checkbox" name="symbols" id="set-symbols" data-chars='!#$%&()*+.:;=>?@[\]^`{|}~' />
+      <label for="set-symbols">Спец. символы </label>
+    </div>
+    <span style="margin-left: 5px">!#$%&()*+.:;=>?@[\]^`{|}~</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+  <script src="https://kit.fontawesome.com/033b763f34.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script>
+    const generatePassword = () => {
+      const cont = window._tippy2.props.content;
+
+      const length = parseInt(cont.querySelector('#set-length').value);
+
+      const active_sets = [];
+
+      ['#set-letters-small', '#set-digits', '#set-spaces', '#set-delimeters', '#set-symbols'].forEach(id => {
+        const el = cont.querySelector(id);
+        if (!el.checked) return;
+
+        active_sets.push(el.dataset.chars.split(''));
+      });
+
+      if (length < active_sets.length) {
+        return;
+      }
+
+      const charSet = active_sets.map(s => s.join('')).join('');
+
+      const isPassNice = pass => active_sets.every(s => s.some(c => pass.includes(c)));
+
+      let curPass = '';
+      do {
+        active_sets.forEach(s => curPass += s[Math.floor(Math.random() * s.length)])
+        for (let i = 0; i < (length - active_sets.length); ++i) {
+          curPass += charSet[Math.floor(Math.random() * charSet.length)];
+        }
+      } while (!isPassNice(curPass))
+
+      return curPass.split('').sort(function () { return 0.5 - Math.random() }).join('');
+    };
+
+    const setPassword = () => {
+      document.querySelector(".password").textContent = generatePassword();
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      new ClipboardJS(".password", {
+        text: function (t) {
+          return t.textContent;
+        },
+      });
+      tippy(".password", {
+        content: "Скопировано!",
+        trigger: "click",
+        theme: "custom",
+
+        onShow(instance) {
+          setTimeout(() => {
+            instance.hide();
+          }, 2000);
+        },
+      });
+
+      const getTippyPlacement = () => window.matchMedia("only screen and (max-width: 800px)")
+        .matches
+        ? (window.matchMedia("only screen and (max-height: 520px)").matches ? "right" : "bottom-start")
+        : "left-start"
+
+      const menu = document.getElementById("settings-menu");
+
+      window._tippy2 = tippy(".settings", {
+        content: menu,
+        interactive: true,
+        trigger: "click",
+        placement: getTippyPlacement(),
+        theme: "custom",
+      })[0];
+
+      menu.style.display = "block";
+
+      window.onresize = () => window._tippy2.setProps({ placement: getTippyPlacement() });
+
+      document.querySelector(".generate").onclick = () => {
+        setPassword();
+      };
+
+      window._tippy2.props.content
+        .querySelector("#set-length")
+        .addEventListener('change', e => e.target.value = (8 <= parseInt(e.target.value) && parseInt(e.target.value) <= 25) ? e.target.value : Math.min(Math.max(parseInt(e.target.value), 8), 25));
+
+
+      window._tippy2.props.content.querySelectorAll("[id*='set-']").forEach(
+        (el) =>
+        (el.onchange = () => {
+          setPassword();
+        })
+      );
+
+      setPassword();
+    });
+  </script>
+</body>
+
+</html>
