@@ -23,7 +23,7 @@
     body {
       font-family: "Manrope", sans-serif;
       background-color: var(--color-background);
-      top: -20%;
+      top: -15%;
       height: 100%;
       width: 100%;
       display: flex;
@@ -118,6 +118,12 @@
       padding: 0.5em 0.5em;
       margin-right: 10px;
     }
+
+    .download {
+        bottom: 10px;
+        left: 15px;
+        position: fixed;
+    }
   </style>
 </head>
 
@@ -179,10 +185,12 @@
     <span style="margin-left: 5px">!#$%&()*+.:;=>?@[\]^`{|}~</span>
   </div>
 
+  <a style="text-decoration: none; color: inherit;" href="#" class="download" download="passGenie.html"><i class="fa-solid fa-download"></i><span class="to-copy" style="font-size: 0.7rem;padding-left:5px">Этот вебсайт может работать оффлайн</span></div>
+
   <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
   <script src="https://kit.fontawesome.com/033b763f34.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script src="https://unpkg.com/@popperjs/core@2.11.8"></script>
+  <script src="https://unpkg.com/tippy.js@6.3.7"></script>
   <script>
     const generatePassword = () => {
       const cont = window._tippy2.props.content;
@@ -265,7 +273,6 @@
       window._tippy2.props.content
         .querySelector("#set-length")
         .addEventListener('change', e => e.target.value = (8 <= parseInt(e.target.value) && parseInt(e.target.value) <= 25) ? e.target.value : Math.min(Math.max(parseInt(e.target.value), 8), 25));
-
 
       window._tippy2.props.content.querySelectorAll("[id*='set-']").forEach(
         (el) =>
